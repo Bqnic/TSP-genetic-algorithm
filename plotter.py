@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import city_positions
+from case import city_positions
 
 cities = city_positions.get_cities()
 
