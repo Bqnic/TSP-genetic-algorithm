@@ -16,4 +16,4 @@ class Chromosome:
                         math.pow(self.traversal[i][0] - self.traversal[i + 1][0], 2) +
                         math.pow(self.traversal[i][1] - self.traversal[i + 1][1], 2))
             
-        return 1 / distance
+        return -distance

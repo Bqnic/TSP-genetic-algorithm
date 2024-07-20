@@ -18,6 +18,19 @@ for i in range(0, INITIAL_POPULATION_SIZE):
 
     initial_population.append(chromosome)
 
+#readjusting fitness values
+min_fitness_value = initial_population[0].fitness_value
+for chromosome in initial_population:
+    if chromosome.fitness_value < min_fitness_value:
+        min_fitness_value = chromosome.fitness_value
+
+min_fitness_value = min_fitness_value - 1
+for chromosome in initial_population:
+    chromosome.fitness_value -= min_fitness_value 
+
+print("INITIAL POPULATION")
 for chromosome in initial_population:
     print(chromosome.__str__())
+
+
 
