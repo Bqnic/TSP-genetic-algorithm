@@ -6,12 +6,15 @@ city_coordinates = [
     [4, 1],
     [6, 1],
     [6, 3],
-    [4, 5]
+    [4, 5],
+    [10, 7],
+    [8,10],
+    [13,17],
+    [12,13],
+    [11,8],
+    [7, 8],
+    [7, 4]
 ]
 
 def get_cities():
-    cities = []
-    for city in city_coordinates:
-        cities.append(city)
-
-    return cities
+    return city_coordinates

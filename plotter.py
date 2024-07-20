@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-from case import city_positions
+from case.city_positions import get_cities
 
-cities = city_positions.get_cities()
+cities = get_cities()
 
 for city in cities:
     plt.plot(city[0], city[1], 'o')

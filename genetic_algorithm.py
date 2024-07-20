@@ -7,7 +7,7 @@ import random
 
 cities = get_cities()
 
-INITIAL_POPULATION_SIZE = 7
+INITIAL_POPULATION_SIZE = 10
 
 population = []
 
