@@ -10,9 +10,11 @@ import random
 
 cities = get_cities()
 
-INITIAL_POPULATION_SIZE = 10
-MUTATION_PROBABILITY = 0.05
+INITIAL_POPULATION_SIZE = 50
+MUTATION_PROBABILITY = 0.08
+NUMBER_OF_GENERATIONS = 100
 
+#inserting initial population
 population = []
 
 for i in range(0, INITIAL_POPULATION_SIZE):
@@ -22,35 +24,51 @@ for i in range(0, INITIAL_POPULATION_SIZE):
 
     population.append(chromosome)
 
-#readjusting fitness values to be > 0
-min_fitness_value = population[0].fitness_value
-for chromosome in population:
-    if chromosome.fitness_value < min_fitness_value:
-        min_fitness_value = chromosome.fitness_value
+for generation in range (1, NUMBER_OF_GENERATIONS + 1): 
+    #readjusting fitness values to be > 0
+    min_fitness_value = population[0].fitness_value
+    for chromosome in population:
+        if chromosome.fitness_value < min_fitness_value:
+            min_fitness_value = chromosome.fitness_value
 
-min_fitness_value = min_fitness_value - 1
-for chromosome in population:
-    chromosome.fitness_value -= min_fitness_value 
+    min_fitness_value = min_fitness_value - 1
+    for chromosome in population:
+        chromosome.fitness_value -= min_fitness_value 
 
-#sorting chromosomes in population according to their fitness value
-population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
+    #sorting chromosomes in population according to their fitness value
+    population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
+    print(population[0])
+    new_population = []
 
-#print("INITIAL POPULATION")
-#for chromosome in population:
-    #print(chromosome.__str__())
+    #finding cumulative sum for the roulette selection
+    total_fitness = 0
+    for chromosome in population:
+        total_fitness += chromosome.fitness_value
 
-#recombination
-#for i in range(0, len(population) + 5):
-parent1, parent2 = pick_parents(population)
-recombine(parent1.traversal, parent2.traversal)
+    cum_sum = []
+    for i in range(0, len(population) - 1):
+        sum = 0
+        for j in range (i, len(population)):
+            sum += population[j].fitness_value / total_fitness
+        cum_sum.append(round(sum, 4))
+    cum_sum.append(0)
+    
+    #recombination
+    for i in range(0, 5 * generation):
+        parent1, parent2 = pick_parents(population, cum_sum)
+        child1, child2 = recombine(parent1.traversal, parent2.traversal)
+        new_population.append(Chromosome(child1))
+        new_population.append(Chromosome(child2))
 
-#mutation
-for chromosome in population:
-    mutation_roll = random.uniform(0, 1)
-    if mutation_roll < MUTATION_PROBABILITY:
-        mutate(chromosome.traversal)
-        #print("MUTATED CHROMOSOME")
-        #print(chromosome)
+    #mutation
+    for chromosome in new_population:
+        mutation_roll = random.uniform(0, 1)
+        if mutation_roll < MUTATION_PROBABILITY:
+            mutate(chromosome.traversal)
+            #print("MUTATED CHROMOSOME")
+            #print(chromosome)
+
+    population = new_population
 
 
 

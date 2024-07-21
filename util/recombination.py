@@ -27,14 +27,13 @@ def recombine(parent1, parent2):
     crossover_point2 = random.randint(crossover_point1 + 1, len(parent1))
 
     #doing pmx
-    child1 = np.zeros((len(parent1), 2), dtype=int)
-    child1[crossover_point1:crossover_point2] = parent1[crossover_point1:crossover_point2].copy()
-
-    child2 = np.zeros((len(parent2), 2), dtype=int)
-    child2[crossover_point1:crossover_point2] = parent2[crossover_point1:crossover_point2].copy()
+    child1 = parent1.copy()
+    child2 = parent2.copy()
 
     child1 = pmx(parent1, parent2, child1, crossover_point1, crossover_point2)
     child2 = pmx(parent2, parent1, child2, crossover_point1, crossover_point2)
+
+    return child1, child2
 
     
     
