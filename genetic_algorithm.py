@@ -35,14 +35,13 @@ for chromosome in population:
 #sorting chromosomes in population according to their fitness value
 population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
 
-print("INITIAL POPULATION")
-for chromosome in population:
-    print(chromosome.__str__())
-
-#picking parents
-parent1, parent2 = pick_parents(population)
+#print("INITIAL POPULATION")
+#for chromosome in population:
+    #print(chromosome.__str__())
 
 #recombination
+#for i in range(0, len(population) + 5):
+parent1, parent2 = pick_parents(population)
 recombine(parent1.traversal, parent2.traversal)
 
 #mutation
@@ -50,8 +49,8 @@ for chromosome in population:
     mutation_roll = random.uniform(0, 1)
     if mutation_roll < MUTATION_PROBABILITY:
         mutate(chromosome.traversal)
-        print("MUTATED CHROMOSOME")
-        print(chromosome)
+        #print("MUTATED CHROMOSOME")
+        #print(chromosome)
 
 
 
