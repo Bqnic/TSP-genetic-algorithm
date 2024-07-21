@@ -15,7 +15,7 @@ def pick_parents(population):
 
     parent1 = 'x'
     parent2 = 'x'
-    
+
     roulette_ball = random.uniform(0, 1)
     for i in range(1, len(cum_sum)):
         if roulette_ball >= cum_sum[i]:
@@ -30,4 +30,4 @@ def pick_parents(population):
                 parent2 = i - 1
                 break
 
-    return parent1, parent2
+    return population[parent1], population[parent2]

@@ -1,6 +1,7 @@
 from case.city_positions import get_cities
 from util.Chromosome import Chromosome
 from util.natural_selection import pick_parents
+from util.recombination import recombine
 import random
 
 #chromosomes (solutions) are constructed in a way that the traversal is going through cities in order that is in the chromosome.
@@ -35,6 +36,10 @@ population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
 #picking parents
 parent1, parent2 = pick_parents(population)
 
+#recombination
+print(parent1)
+print(parent2)
+recombine(parent1.traversal, parent2.traversal)
 
 print("INITIAL POPULATION")
 for chromosome in population:
