@@ -2,6 +2,7 @@ from case.city_positions import get_cities
 from util.Chromosome import Chromosome
 from util.natural_selection import pick_parents
 from util.recombination import recombine
+from util.mutation import mutate
 import random
 
 #chromosomes (solutions) are constructed in a way that the traversal is going through cities in order that is in the chromosome.
@@ -10,6 +11,7 @@ import random
 cities = get_cities()
 
 INITIAL_POPULATION_SIZE = 10
+MUTATION_PROBABILITY = 0.05
 
 population = []
 
@@ -33,20 +35,23 @@ for chromosome in population:
 #sorting chromosomes in population according to their fitness value
 population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
 
-#picking parents
-parent1, parent2 = pick_parents(population)
-
-#recombination
-print(parent1)
-print(parent2)
-recombine(parent1.traversal, parent2.traversal)
-
 print("INITIAL POPULATION")
 for chromosome in population:
     print(chromosome.__str__())
 
-print(parent1, parent2)
+#picking parents
+parent1, parent2 = pick_parents(population)
 
+#recombination
+recombine(parent1.traversal, parent2.traversal)
+
+#mutation
+for chromosome in population:
+    mutation_roll = random.uniform(0, 1)
+    if mutation_roll < MUTATION_PROBABILITY:
+        mutate(chromosome.traversal)
+        print("MUTATED CHROMOSOME")
+        print(chromosome)
 
 
 

@@ -29,10 +29,6 @@ def recombine(parent1, parent2):
                 candidate = parent2[index]
             child1[i] = candidate
 
-    for gene in child1:
-        print(gene)
-    print(crossover_point1, crossover_point2)
-
 
 
     
