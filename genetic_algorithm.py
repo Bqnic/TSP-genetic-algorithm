@@ -3,6 +3,7 @@ from util.Chromosome import Chromosome
 from util.natural_selection import pick_parents
 from util.recombination import recombine
 from util.mutation import mutate
+from util.cumulative_sum import find_cum_sum
 import random
 
 #chromosomes (solutions) are constructed in a way that the traversal is going through cities in order that is in the chromosome.
@@ -28,22 +29,14 @@ for i in range(0, INITIAL_POPULATION_SIZE):
 for generation in range (1, NUMBER_OF_GENERATIONS + 1): 
     #sorting chromosomes in population according to their fitness value
     population.sort(key=lambda chromosome: chromosome.fitness_value)
+
     print(f"BEST FROM GENERATION {generation}: ")
     print(population[0])
+
     new_population = []
 
     #finding cumulative sum for the roulette selection
-    total_fitness = 0
-    for chromosome in population:
-        total_fitness += chromosome.fitness_value
-
-    cum_sum = []
-    for i in range(0, len(population) - 1):
-        sum = 0
-        for j in range (i, len(population)):
-            sum += population[j].fitness_value / total_fitness
-        cum_sum.append(round(sum, 4))
-    cum_sum.append(0)
+    cum_sum = find_cum_sum(population)
     
     #recombination
     for i in range(0, (5 * generation) + INITIAL_POPULATION_SIZE):
@@ -57,8 +50,6 @@ for generation in range (1, NUMBER_OF_GENERATIONS + 1):
         mutation_roll = random.uniform(0, 1)
         if mutation_roll < MUTATION_PROBABILITY:
             mutate(chromosome.traversal)
-            #print("MUTATED CHROMOSOME")
-            #print(chromosome)
 
     #elitism
     for i in range(0, round(PERCENTAGE_OF_ELITES * len(population))):
