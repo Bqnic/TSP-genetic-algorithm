@@ -7,15 +7,15 @@ def pick_parents(population, cum_sum):
     roulette_ball = random.uniform(0, 1)
     for i in range(1, len(cum_sum)):
         if roulette_ball >= cum_sum[i]:
-            parent1 = i - 1
-            parent2 = i - 1
+            parent1 = len(cum_sum) - i - 1
+            parent2 = len(cum_sum) - i - 1
             break
 
     while parent1 == parent2:
         roulette_ball = random.uniform(0, 1)
         for i in range(1, len(cum_sum)):
             if roulette_ball >= cum_sum[i]:
-                parent2 = i - 1
+                parent2 = len(cum_sum) - i - 1
                 break
 
     return population[parent1], population[parent2]

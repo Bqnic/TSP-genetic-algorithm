@@ -9,11 +9,11 @@ class Chromosome:
         return f"{self.traversal}, fitness value = {self.fitness_value}"
     
     def calculate_fitness(self):
-        #fitness function is calculated as 1 / Euclidean distance
+        #fitness function is calculated as Euclidean distance, we want to minimize it
         distance = 0
         for i in range(0, len(self.traversal) - 1):
             distance += math.sqrt(
                         math.pow(self.traversal[i][0] - self.traversal[i + 1][0], 2) +
                         math.pow(self.traversal[i][1] - self.traversal[i + 1][1], 2))
             
-        return -distance
+        return distance

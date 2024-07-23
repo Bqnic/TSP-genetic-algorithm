@@ -13,6 +13,7 @@ cities = get_cities()
 INITIAL_POPULATION_SIZE = 50
 MUTATION_PROBABILITY = 0.08
 NUMBER_OF_GENERATIONS = 100
+PERCENTAGE_OF_ELITES = 0.1
 
 #inserting initial population
 population = []
@@ -25,18 +26,8 @@ for i in range(0, INITIAL_POPULATION_SIZE):
     population.append(chromosome)
 
 for generation in range (1, NUMBER_OF_GENERATIONS + 1): 
-    #readjusting fitness values to be > 0
-    min_fitness_value = population[0].fitness_value
-    for chromosome in population:
-        if chromosome.fitness_value < min_fitness_value:
-            min_fitness_value = chromosome.fitness_value
-
-    min_fitness_value = min_fitness_value - 1
-    for chromosome in population:
-        chromosome.fitness_value -= min_fitness_value 
-
     #sorting chromosomes in population according to their fitness value
-    population.sort(key=lambda chromosome: chromosome.fitness_value, reverse=True)
+    population.sort(key=lambda chromosome: chromosome.fitness_value)
     print(population[0])
     new_population = []
 
@@ -68,8 +59,11 @@ for generation in range (1, NUMBER_OF_GENERATIONS + 1):
             #print("MUTATED CHROMOSOME")
             #print(chromosome)
 
-    population = new_population
+    #elitism
+    for i in range(0, round(PERCENTAGE_OF_ELITES * len(population))):
+        new_population.append(Chromosome(population[i].traversal))
 
+    population = new_population
 
 
 
