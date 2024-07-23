@@ -10,9 +10,9 @@ import random
 
 cities = get_cities()
 
-INITIAL_POPULATION_SIZE = 50
+INITIAL_POPULATION_SIZE = 80
 MUTATION_PROBABILITY = 0.08
-NUMBER_OF_GENERATIONS = 100
+NUMBER_OF_GENERATIONS = 120
 PERCENTAGE_OF_ELITES = 0.1
 
 #inserting initial population
@@ -28,6 +28,7 @@ for i in range(0, INITIAL_POPULATION_SIZE):
 for generation in range (1, NUMBER_OF_GENERATIONS + 1): 
     #sorting chromosomes in population according to their fitness value
     population.sort(key=lambda chromosome: chromosome.fitness_value)
+    print(f"BEST FROM GENERATION {generation}: ")
     print(population[0])
     new_population = []
 
@@ -45,7 +46,7 @@ for generation in range (1, NUMBER_OF_GENERATIONS + 1):
     cum_sum.append(0)
     
     #recombination
-    for i in range(0, 5 * generation):
+    for i in range(0, (5 * generation) + INITIAL_POPULATION_SIZE):
         parent1, parent2 = pick_parents(population, cum_sum)
         child1, child2 = recombine(parent1.traversal, parent2.traversal)
         new_population.append(Chromosome(child1))
